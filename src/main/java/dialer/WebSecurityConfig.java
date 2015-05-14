@@ -17,6 +17,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 //.antMatchers("/", "/home").permitAll()
                 .anyRequest().authenticated()
+                // to enable authentication remove following line:
+                .anyRequest().permitAll()
                 .and()
             .formLogin()
                 .loginPage("/login")
