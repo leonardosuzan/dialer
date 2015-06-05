@@ -24,7 +24,7 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 @Configuration
@@ -35,7 +35,7 @@ public class BatchConfiguration {
 	@Bean
 	public ItemReader<Contato> reader() {
 		FlatFileItemReader<Contato> reader = new FlatFileItemReader<Contato>();
-		reader.setResource(new ClassPathResource("bla"));
+		reader.setResource(new FileSystemResource("contatos.csv"));
 		reader.setLineMapper(new DefaultLineMapper<Contato>() {
 			{
 				setLineTokenizer(new DelimitedLineTokenizer() {
@@ -106,4 +106,5 @@ public class BatchConfiguration {
 		factory.afterPropertiesSet();
 		return (JobRepository) factory.getObject();
 	}
+
 }

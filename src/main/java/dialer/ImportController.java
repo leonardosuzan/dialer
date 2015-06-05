@@ -1,36 +1,43 @@
 package dialer;
 
-import javax.batch.operations.JobRestartException;
-import javax.batch.operations.NoSuchJobException;
-import javax.inject.Inject;
-
+import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersInvalidException;
-import org.springframework.batch.core.configuration.JobLocator;
 import org.springframework.batch.core.launch.JobLauncher;
-import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
-import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.support.SessionStatus;
 
+
+@Controller
 public class ImportController {
-	@Inject
-	private JobLocator jobLocator;
+	
+	
+	@Autowired
+    JobLauncher jobLauncher;
 
-	@Inject
-	private JobLauncher jobLauncher;
+    @Autowired
+    Job job;
 
-	@RequestMapping(value = "/upload")
-	public void runJob() throws JobExecutionAlreadyRunningException, JobRestartException,        JobInstanceAlreadyCompleteException, JobParametersInvalidException, NoSuchJobException {
-	    try {
-			jobLauncher.run(jobLocator.getJob("importContactsJob"), new JobParameters());
-		} catch (org.springframework.batch.core.repository.JobRestartException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (org.springframework.batch.core.launch.NoSuchJobException e) {
+    @RequestMapping("/importData")
+    public String importData(Model model, SessionStatus status){
+
+		try {
+			handle();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+		return "importData";
 	}
+    
+    
+    public void handle() throws Exception{
+        jobLauncher.run(job, new JobParameters());
+        
 
+    }
+	
 }
