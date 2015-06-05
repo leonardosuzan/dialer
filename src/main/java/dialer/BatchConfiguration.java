@@ -8,11 +8,13 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.launch.support.SimpleJobLauncher;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean;
+import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
@@ -22,6 +24,7 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
@@ -30,25 +33,30 @@ import org.springframework.jdbc.core.JdbcTemplate;
 @Configuration
 @EnableBatchProcessing
 public class BatchConfiguration {
+	
+
 
 	// tag::readerwriterprocessor[]
+	@StepScope
 	@Bean
-	public ItemReader<Contato> reader() {
+	public ItemReader<Contato> reader(@Value("#{jobParameters[fileName]}") String fileName) {
 		FlatFileItemReader<Contato> reader = new FlatFileItemReader<Contato>();
-		reader.setResource(new FileSystemResource("contatos.csv"));
+		reader.setResource(new FileSystemResource(fileName));
 		reader.setLineMapper(new DefaultLineMapper<Contato>() {
 			{
 				setLineTokenizer(new DelimitedLineTokenizer() {
 					{
 						setNames(new String[] { "primeiroNome", "sobrenome",
-								"codigoArea", "numeroTelefonico", "endereco",
+								"codigoArea", "numeroTelefonico", "cidade","estado", "endereco",
 								"numeroEndereco", "complemento", "bairro",
-								"cidade", "estado", "observacoes" });
+								  "observacoes" });
 					}
 				});
 				setFieldSetMapper(new ContatoFieldSetMapper());
 			}
 		});
+		reader.open(new ExecutionContext());
+		
 		return reader;
 	}
 
@@ -61,7 +69,7 @@ public class BatchConfiguration {
 	public ItemWriter<Contato> writer(DataSource dataSource) {
 		JdbcBatchItemWriter<Contato> writer = new JdbcBatchItemWriter<Contato>();
 		writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<Contato>());
-		writer.setSql("INSERT INTO people (first_name, last_name) VALUES (:firstName, :lastName)");
+		writer.setSql("INSERT INTO contatosListagens (idListagens,primeiroNome,sobrenome,ddd,numeroTelefonico,endereco,numero,complemento,bairro,cidade,estado,observacoes) VALUES (1,:primeiroNome,:sobrenome,:codigoArea,:numeroTelefonico,:endereco,:numeroEndereco,:complemento,:bairro,:cidade,:estado,:observacoes)");
 		writer.setDataSource(dataSource);
 		return writer;
 	}
@@ -100,11 +108,16 @@ public class BatchConfiguration {
 		return jobLauncher;
 	}
 
+
 	public JobRepository getJobRepository() throws Exception {
 		MapJobRepositoryFactoryBean factory = new MapJobRepositoryFactoryBean();
 		factory.setTransactionManager(new ResourcelessTransactionManager());
 		factory.afterPropertiesSet();
 		return (JobRepository) factory.getObject();
 	}
-
+	
+//	  public void setFileName(final String name) {
+//	    this.fileName=name;
+//	    return;
+//	  }
 }

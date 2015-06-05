@@ -1,17 +1,22 @@
 package dialer;
 
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 
 @Controller
+@SessionAttributes("fileName")
 public class ImportController {
+	
+	String localFileName;
 	
 	
 	@Autowired
@@ -21,8 +26,11 @@ public class ImportController {
     Job job;
 
     @RequestMapping("/importData")
-    public String importData(Model model, SessionStatus status){
+    public String importData(@ModelAttribute("fileName") String fileName, Model model, SessionStatus status){
+    	
 
+    	localFileName = fileName;
+    	
 		try {
 			handle();
 		} catch (Exception e) {
@@ -35,7 +43,8 @@ public class ImportController {
     
     
     public void handle() throws Exception{
-        jobLauncher.run(job, new JobParameters());
+    	
+    	jobLauncher.run(job, new JobParametersBuilder().addString("fileName", this.localFileName).toJobParameters());
         
 
     }

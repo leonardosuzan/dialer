@@ -25,7 +25,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@SessionAttributes("campaign")
+@SessionAttributes(value={"campaign", "fileName"})
 public class FileUploadController {
 
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
@@ -44,6 +44,7 @@ public class FileUploadController {
 			throws Exception {
 
 		model.addAttribute("campaign", campaign);
+		model.addAttribute("fileName", fileName);
 
 		if (!file.isEmpty()) {
 			try {

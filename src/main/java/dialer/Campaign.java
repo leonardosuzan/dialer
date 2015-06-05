@@ -1,23 +1,15 @@
 package dialer;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "Campanha")
 public class Campaign {
+	
+	protected Campaign() {}
 
-	@Id
-	@GeneratedValue
+
 	private Integer idCampnha;
-
-	@Id
 	private Integer idListagem;
 
-	@Column(name = "nome")
+
 	private String name;
 
 	public Integer getIdCampnha() {
@@ -44,7 +36,7 @@ public class Campaign {
 		this.description = description;
 	}
 
-	@Column(name = "descricao")
+
 	private String description;
 
 	public String getName() {

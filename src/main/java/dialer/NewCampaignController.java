@@ -12,11 +12,14 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes("campaign")
 public class NewCampaignController {
 	
+
+	
 	@RequestMapping(value="/newCampaign", method=RequestMethod.GET)
 	public String newCampaign(Model model, SessionStatus status){
 		Campaign campaign = new Campaign();
 		
 		model.addAttribute("campaign", campaign);
+		
 
 		return "newCampaign";
 	}

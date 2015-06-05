@@ -2,14 +2,8 @@ package dialer;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 
-@Entity
-@Table(name = "contatosListagens")
 public class Contato implements Serializable {
 
 
@@ -18,11 +12,9 @@ public class Contato implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue
+
 	private Integer idContato;
 	
-	@Id
 	private Integer idListagens;
 	
 	
@@ -135,6 +127,22 @@ public class Contato implements Serializable {
 
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
+	}
+
+	public Integer getIdContato() {
+		return idContato;
+	}
+
+	public void setIdContato(Integer idContato) {
+		this.idContato = idContato;
+	}
+
+	public Integer getIdListagens() {
+		return idListagens;
+	}
+
+	public void setIdListagens(Integer idListagens) {
+		this.idListagens = idListagens;
 	}
 
 }
