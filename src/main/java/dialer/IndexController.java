@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 	
-	@RequestMapping(value={"", "/", "home"})
+	@RequestMapping(value={"", "/", "home", "index", "dashboard"})
 	public String index(Model model) {
         model.addAttribute("pg_name", "dialer.mt | home");
         

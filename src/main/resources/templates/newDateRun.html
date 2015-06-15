@@ -12,10 +12,14 @@
 <meta name="keywords" content="" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu+Condensed"
 	rel="stylesheet" />
+<link rel="stylesheet" href="css/jquery-ui.css"/>
 <script src="js/jquery.min.js"></script>
 <script src="js/skel.min.js"></script>
 <script src="js/skel-layers.min.js"></script>
 <script src="js/init.js"></script>
+<script src="js/jquery-ui.js"></script>
+
+
 <noscript>
 	<link rel="stylesheet" href="css/skel.css" />
 	<link rel="stylesheet" href="css/style.css" />
@@ -38,9 +42,10 @@
 						</h1>
 						<nav id="nav">
 
-							<a href="newCampaign" class="current-page-item">Nova Campanha</a> <a href="newListing">Nova
-								Listagem</a> <a href="newDateRun">Novo Agendamento</a> <a
-								href="newAudios">Importar Audios</a> <a href="index">Dashboard</a> <a href="logout">Sair</a>
+							<a href="newCampaign">Nova Campanha</a> <a href="newListing">Nova
+								Listagem</a> <a href="newDateRun" class="current-page-item">Novo
+								Agendamento</a> <a href="newAudios">Importar Audios</a> <a
+								href="index">Dashboard</a> <a href="logout">Sair</a>
 						</nav>
 					</header>
 
@@ -54,14 +59,32 @@
 				<div class="12u" align="center">
 
 					<section>
-						<h2 th:text="'Campanha: ' + ${campaign.name}" />
-						<div th:if="${status}"><p style="color:#981d0f" th:text="${status}"></p></div>
-						<p>Selecione um arquivo contendo o banco de dados telefonico</p>
-						<form method="POST" enctype="multipart/form-data" action="/upload">
-							Listagem: <input type="file" name="file"/><br />
-							Nome: <input type="text" name="fileName"/><br /> <br /> 
-							<input class="button" type="submit" value="Upload"/>
+						<h2>Novo agendamento</h2>
+						<p>
+						<form action="#" th:action="@{/newCampaign}"
+							th:object="${campaig}" method="post">
+							<div class="4u">
+							<script>
+									$(function() {
+										$("#datepicker1").datepicker({dateFormat: 'dd/mm/yy' });
+									});
+									$(function() {
+										$("#datepicker2").datepicker({dateFormat: 'dd/mm/yy' });
+									});
+								</script>
+								<label> data início: <input type="text" id="datepicker1" />
+								</label><br/>
+								<label> data fim: <input type="text" id="datepicker2" />
+								</label><br/>
+								<label> Meta de resultados: <input type="text" id="target" />
+								</label><br/>
+
+							</div>
+							<div>
+								<input class="button" type="submit" value="Enviar" />
+							</div>
 						</form>
+						</p>
 					</section>
 
 				</div>

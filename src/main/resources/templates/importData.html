@@ -40,7 +40,8 @@
 
 							<a href="newCampaign" class="current-page-item">Nova Campanha</a> <a href="newListing">Nova
 								Listagem</a> <a href="newDateRun">Novo Agendamento</a> <a
-								href="newAudios">Importar Audios</a> <a href="index">Dashboard</a> <a href="logout">Sair</a>
+								href="newAudios">Importar Audios</a> <a href="index"
+								>Dashboard</a> <a href="logout">Sair</a>
 						</nav>
 					</header>
 
@@ -54,14 +55,10 @@
 				<div class="12u" align="center">
 
 					<section>
-						<h2 th:text="'Campanha: ' + ${campaign.name}" />
-						<div th:if="${status}"><p style="color:#981d0f" th:text="${status}"></p></div>
-						<p>Selecione um arquivo contendo o banco de dados telefonico</p>
-						<form method="POST" enctype="multipart/form-data" action="/upload">
-							Listagem: <input type="file" name="file"/><br />
-							Nome: <input type="text" name="fileName"/><br /> <br /> 
-							<input class="button" type="submit" value="Upload"/>
-						</form>
+						<h2>Dados Importados</h2>
+						<p>
+						Status: <b>OK</b><p type="text" th:field="*{name}" />
+						</p>
 					</section>
 
 				</div>
