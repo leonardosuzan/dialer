@@ -13,7 +13,8 @@ import org.springframework.web.bind.support.SessionStatus;
 
 
 @Controller
-@SessionAttributes("fileName")
+@SessionAttributes({"fileName", "campaign"})
+
 public class ImportController {
 	
 	String localFileName;
@@ -26,10 +27,12 @@ public class ImportController {
     Job job;
 
     @RequestMapping("/importData")
-    public String importData(@ModelAttribute("fileName") String fileName, Model model, SessionStatus status){
+    public String importData(@ModelAttribute("fileName") String fileName, @ModelAttribute("campaign") Campaign campaign, Model model, SessionStatus status){
     	
 
     	localFileName = fileName;
+    	
+    	model.addAttribute("campaign", campaign);
     	
 		try {
 			handle();
@@ -38,7 +41,7 @@ public class ImportController {
 			e.printStackTrace();
 		}
 
-		return "importData";
+		return "dateRun";
 	}
     
     
