@@ -1,5 +1,6 @@
 package dialer;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.support.SessionStatus;
 @Controller
 @SessionAttributes("campaign")
 public class NewCampaignController {
+	
+	  @Autowired
+	  private CampaignDAO campaignDAO;
 	
 
 	
@@ -28,6 +32,9 @@ public class NewCampaignController {
 	public String addCampaign(@ModelAttribute("campaign") Campaign campaign, Model model, SessionStatus status){
 		model.addAttribute("campaign", campaign);
 		
+		System.out.println("Creating new campaign: " + campaign.getName());
+		campaignDAO.save(campaign);
+
 		
 		return "importList";
 	}

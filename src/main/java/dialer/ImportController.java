@@ -1,6 +1,11 @@
 package dialer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParameter;
+import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +30,26 @@ public class ImportController {
 
     @Autowired
     Job job;
+    
+    @Autowired
+    ListingDAO listingDAO;
+    
+    @Autowired
+    CampaignDAO campaignDAO;
+    
+    private Listing listing;
 
     @RequestMapping("/importData")
     public String importData(@ModelAttribute("fileName") String fileName, @ModelAttribute("campaign") Campaign campaign, Model model, SessionStatus status){
+    	
+    	
+    	listing = new Listing();
+    	
+    	listing.setName(campaign.getName() + "list");
+    	campaign.setIdListagem(listing.getId_listing());
+    	listingDAO.save(listing);
+    	campaignDAO.save(campaign);
+    	
     	
 
     	localFileName = fileName;
@@ -47,7 +69,13 @@ public class ImportController {
     
     public void handle() throws Exception{
     	
-    	jobLauncher.run(job, new JobParametersBuilder().addString("fileName", this.localFileName).toJobParameters());
+    	
+    	Map<String, JobParameter> map = new HashMap<String, JobParameter>();
+    	
+    	map.put("fileName",new JobParameter(this.localFileName));
+    	map.put("listingId",new JobParameter(this.listing.getId_listing()));
+    	
+    	jobLauncher.run(job, new JobParameters(map));
         
 
     }

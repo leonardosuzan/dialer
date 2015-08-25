@@ -16,7 +16,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .csrf().disable()
             .authorizeRequests()
                 //.antMatchers("/", "/home").permitAll()
-                .anyRequest().authenticated()
+                //.anyRequest().authenticated()
                 // to enable authentication remove following line:
                 //.anyRequest().permitAll()
                 .and()

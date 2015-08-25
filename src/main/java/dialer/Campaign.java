@@ -1,15 +1,28 @@
 package dialer;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
+@Entity
+@Table(name = "Campanha")
 public class Campaign {
+
+	protected Campaign() {
+	}
 	
-	protected Campaign() {}
+	public Campaign(String name){
+		this.name = name;
+	}
 
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idCampnha;
-	private Integer idListagem;
 
-
+	private Long idListagem;
+	
+	private String description;
+    
+	@NotNull
 	private String name;
 
 	public Integer getIdCampnha() {
@@ -20,11 +33,11 @@ public class Campaign {
 		this.idCampnha = idCampnha;
 	}
 
-	public Integer getIdListagem() {
+	public Long getIdListagem() {
 		return idListagem;
 	}
 
-	public void setIdListagem(Integer idListagem) {
+	public void setIdListagem(Long idListagem) {
 		this.idListagem = idListagem;
 	}
 
@@ -36,14 +49,12 @@ public class Campaign {
 		this.description = description;
 	}
 
-
-	private String description;
-
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
+
 		this.name = name;
 	}
 

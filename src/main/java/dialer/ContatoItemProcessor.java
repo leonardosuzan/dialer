@@ -17,6 +17,18 @@ public class ContatoItemProcessor implements ItemProcessor<Contato, Contato> {
 //        final contato transformedPerson = new contato(firstName, lastName);
 		
 		
+		if(contato.getNumeroTelefonico().isEmpty()){
+			log.info("Ignorando (nulo) (" + contato + ")");
+			return null;
+		}
+		
+		
+		try{
+			Double.parseDouble(contato.getNumeroTelefonico());
+		} catch(NumberFormatException e){
+			log.info("Ignorando (não numérico) (" + contato + ")");
+			return null;
+		}
 
         log.info("Processando (" + contato + ")");
 

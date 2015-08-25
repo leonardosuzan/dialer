@@ -24,9 +24,11 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -34,12 +36,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 @EnableBatchProcessing
 public class BatchConfiguration {
 	
-
-
+	
 	// tag::readerwriterprocessor[]
 	@StepScope
 	@Bean
-	public ItemReader<Contato> reader(@Value("#{jobParameters[fileName]}") String fileName) {
+	public ItemReader<Contato> reader(@Value("#{jobParameters[fileName]}") String fileName, @Value("#{jobParameters[listingId]}") Long listingId) {
 		FlatFileItemReader<Contato> reader = new FlatFileItemReader<Contato>();
 		reader.setResource(new FileSystemResource(fileName));
 		reader.setLineMapper(new DefaultLineMapper<Contato>() {
@@ -55,6 +56,10 @@ public class BatchConfiguration {
 				setFieldSetMapper(new ContatoFieldSetMapper());
 			}
 		});
+		
+		
+//		System.out.println("#{jobParameters[listingId]}");
+		
 		reader.open(new ExecutionContext());
 		
 		return reader;
@@ -66,10 +71,14 @@ public class BatchConfiguration {
 	}
 
 	@Bean
-	public ItemWriter<Contato> writer(DataSource dataSource) {
+	@StepScope
+	public ItemWriter<Contato> writer(DataSource dataSource, @Value("#{jobParameters[listingId]}") Long listingId) {
+		
+		System.out.println("Importando contatos para listagem <ID>: "+listingId);
+		
 		JdbcBatchItemWriter<Contato> writer = new JdbcBatchItemWriter<Contato>();
 		writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<Contato>());
-		writer.setSql("INSERT INTO contatosListagens (idListagens,primeiroNome,sobrenome,ddd,numeroTelefonico,endereco,numero,complemento,bairro,cidade,estado,observacoes) VALUES (1,:primeiroNome,:sobrenome,:codigoArea,:numeroTelefonico,:endereco,:numeroEndereco,:complemento,:bairro,:cidade,:estado,:observacoes)");
+		writer.setSql("INSERT INTO contatosListagens (idListagens,primeiroNome,sobrenome,ddd,numeroTelefonico,endereco,numero,complemento,bairro,cidade,estado,observacoes) VALUES ("+listingId+",:primeiroNome,:sobrenome,:codigoArea,:numeroTelefonico,:endereco,:numeroEndereco,:complemento,:bairro,:cidade,:estado,:observacoes)");
 		writer.setDataSource(dataSource);
 		return writer;
 	}
