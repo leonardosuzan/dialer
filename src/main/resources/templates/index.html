@@ -65,7 +65,7 @@
 				
 				<!-- 			<img id="close" src="images/close.png" alt=""/> -->
 				<h2>
-				    <p th:text="'Bem-vindo Leonardo'" />
+				    <p th:text="'Bem-vindo ' + ${user}" />
 <!-- 					<p th:text="'Bem-vindo ' + ${name} + '!'" /> -->
 				</h2>
 				<span>Para começar escolha um dos ítens no menu superior ...</span>
@@ -82,11 +82,7 @@
 						<h2>Campanhas</h2>
 						<p>Descrição das campanhas</p>
 						<ul class="link-list">
-							<li><a href="#">Sed neque nisi consequat</a></li>
-							<li><a href="#">Dapibus sed mattis blandit</a></li>
-							<li><a href="#">Quis accumsan lorem</a></li>
-							<li><a href="#">Suspendisse varius ipsum</a></li>
-							<li><a href="#">Eget et amet consequat</a></li>
+							<li th:each="campanha : ${campanhas}"><a href="#" th:text="${campanha.name}"></a></li>
 						</ul>
 						<footer class="controls">
 							<a href="http://html5up.net" class="button">Ver mais ...</a>
@@ -100,11 +96,7 @@
 						<h2>Listagens</h2>
 						<p>Descrição das listagens</p>
 						<ul class="link-list">
-							<li><a href="#">Sed neque nisi consequat</a></li>
-							<li><a href="#">Dapibus sed mattis blandit</a></li>
-							<li><a href="#">Quis accumsan lorem</a></li>
-							<li><a href="#">Suspendisse varius ipsum</a></li>
-							<li><a href="#">Eget et amet consequat</a></li>
+							<li th:each="listing : ${listings}"><a href="#" th:text="${listing.name}"></a></li>
 						</ul>
 						<footer class="controls">
 							<a href="http://html5up.net" class="button">Ver mais ...</a>

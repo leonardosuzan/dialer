@@ -10,24 +10,24 @@ public class Listing {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id_listing;
+	private Long idListing;
 
 	private String name;
 
 	@Override
 	public String toString() {
-		return "Listing [id_listing=" + id_listing + ", name=" + name
+		return "Listing [id_listing=" + idListing + ", name=" + name
 				+ ", description=" + description + "]";
 	}
 
 	private String description;
 
 	public Long getId_listing() {
-		return id_listing;
+		return idListing;
 	}
 
 	public void setId_listing(Long id_listing) {
-		this.id_listing = id_listing;
+		this.idListing = id_listing;
 	}
 
 	public String getName() {

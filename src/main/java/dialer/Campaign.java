@@ -16,7 +16,7 @@ public class Campaign {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer idCampnha;
+	private Integer idCampanha;
 
 	private Long idListagem;
 	
@@ -26,11 +26,18 @@ public class Campaign {
 	private String name;
 
 	public Integer getIdCampnha() {
-		return idCampnha;
+		return idCampanha;
 	}
 
 	public void setIdCampnha(Integer idCampnha) {
-		this.idCampnha = idCampnha;
+		this.idCampanha = idCampnha;
+	}
+
+	@Override
+	public String toString() {
+		return "Campaign [idCampanha=" + idCampanha + ", idListagem="
+				+ idListagem + ", description=" + description + ", name="
+				+ name + "]";
 	}
 
 	public Long getIdListagem() {
