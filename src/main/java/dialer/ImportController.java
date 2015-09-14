@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @SessionAttributes({"fileName", "campaign"})
-
 public class ImportController {
 	
 	String localFileName;
@@ -64,6 +62,29 @@ public class ImportController {
 		}
 
 		return "dateRun";
+	}
+    
+    
+    @RequestMapping("/importDataList")
+    public String importDataList(@ModelAttribute("fileName") String fileName, Model model, SessionStatus status){
+    	
+    	
+    	listing = new Listing();
+    	
+    	listing.setName(fileName + "_list");
+    	listingDAO.save(listing);
+
+    	localFileName = fileName;
+    	
+    	
+		try {
+			handle();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "newListSuccess";
 	}
     
     
