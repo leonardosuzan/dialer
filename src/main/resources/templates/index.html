@@ -110,11 +110,7 @@
 						<h2>Agendamentos</h2>
 						<p>Descrição dos agendamentos</p>
 						<ul class="link-list">
-							<li><a href="#">Sed neque nisi consequat</a></li>
-							<li><a href="#">Dapibus sed mattis blandit</a></li>
-							<li><a href="#">Quis accumsan lorem</a></li>
-							<li><a href="#">Suspendisse varius ipsum</a></li>
-							<li><a href="#">Eget et amet consequat</a></li>
+							<li th:each="a : ${agendamentos}"><a href="#" th:text="|$${agendamento.inicio}|"></a></li>
 						</ul>
 						<footer class="controls">
 							<a href="http://html5up.net" class="button">Ver mais ...</a>
