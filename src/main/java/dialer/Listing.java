@@ -22,11 +22,11 @@ public class Listing {
 
 	private String description;
 
-	public Long getId_listing() {
+	public Long getIdListing() {
 		return idListing;
 	}
 
-	public void setId_listing(Long id_listing) {
+	public void setIdListing(Long id_listing) {
 		this.idListing = id_listing;
 	}
 

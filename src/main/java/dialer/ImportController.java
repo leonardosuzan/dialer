@@ -44,7 +44,7 @@ public class ImportController {
     	listing = new Listing();
     	
     	listing.setName(campaign.getName() + "list");
-    	campaign.setIdListagem(listing.getId_listing());
+    	campaign.setIdListagem(listing.getIdListing());
     	listingDAO.save(listing);
     	campaignDAO.save(campaign);
     	
@@ -94,7 +94,7 @@ public class ImportController {
     	Map<String, JobParameter> map = new HashMap<String, JobParameter>();
     	
     	map.put("fileName",new JobParameter(this.localFileName));
-    	map.put("listingId",new JobParameter(this.listing.getId_listing()));
+    	map.put("listingId",new JobParameter(this.listing.getIdListing()));
     	
     	jobLauncher.run(job, new JobParameters(map));
         

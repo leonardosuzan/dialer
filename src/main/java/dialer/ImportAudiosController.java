@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
- 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
  
 @Controller
 public class ImportAudiosController {
+	
+	@Autowired
+	AudioDAO audioDAO;
  
     @RequestMapping(value = "/newAudios", method = RequestMethod.GET)
     public String crunchifyDisplayForm() {
@@ -36,14 +40,25 @@ public class ImportAudiosController {
                 String fileName = multipartFile.getOriginalFilename();
                 if (!"".equalsIgnoreCase(fileName)) {
                     // Handle file content - multipartFile.getInputStream()
-                    multipartFile
-                            .transferTo(new File(saveDirectory + fileName));
+                    multipartFile.transferTo(new File(saveDirectory + fileName));
                     fileNames.add(fileName);
+                    
+                    Audio a = new Audio();
+                    
+                    a.setDir(saveDirectory + fileName);
+                    a.setNome(fileName);
+                    
+                    audioDAO.save(a);
+                    
+                    map.addAttribute("save", true);
+                    
+                    
+                    
                 }
             }
         }
  
         map.addAttribute("files", fileNames);
-        return "uploadfilesuccess";
+        return "uploadAudios";
     }
 }

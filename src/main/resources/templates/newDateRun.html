@@ -13,11 +13,14 @@
 <link href="http://fonts.googleapis.com/css?family=Ubuntu+Condensed"
 	rel="stylesheet" />
 <link rel="stylesheet" href="css/jquery-ui.css"/>
+<link rel="stylesheet" href="css/jquery-ui-timepicker-addon.css"/>
+
 <script src="js/jquery.min.js"></script>
 <script src="js/skel.min.js"></script>
 <script src="js/skel-layers.min.js"></script>
 <script src="js/init.js"></script>
 <script src="js/jquery-ui.js"></script>
+<script src="js/jquery-ui-timepicker-addon.js"></script>
 
 
 <noscript>
@@ -61,24 +64,35 @@
 					<section>
 						<h2>Novo agendamento</h2>
 						<p>
-						<form action="#" th:action="@{/newCampaign}"
-							th:object="${campaig}" method="post">
-							<div class="4u">
+						<form action="#" th:action="@{/newDateRun}"
+							th:object="${agendamento}" method="post">
+							<div class="4u" align="center">
 							<script>
 									$(function() {
-										$("#datepicker1").datepicker({dateFormat: 'dd/mm/yy' });
+										$("#datepicker1").datetimepicker({dateFormat: 'dd/mm/yy' });
 									});
 									$(function() {
-										$("#datepicker2").datepicker({dateFormat: 'dd/mm/yy' });
+										$("#datepicker2").datetimepicker({dateFormat: 'dd/mm/yy' });
 									});
 								</script>
-								<label> data início: <input type="text" id="datepicker1" />
+								<label> data início: <input type="text" id="datepicker1"
+									th:field="*{inicio}" />
 								</label><br/>
-								<label> data fim: <input type="text" id="datepicker2" />
-								</label><br/>
-								<label> Meta de resultados: <input type="text" id="target" />
-								</label><br/>
+								<label> data limite: <input type="text" id="datepicker2"
+									th:field="*{fim}" />
+								</label><br/><br/>
+								<label> Meta de resultados: <input type="text"
+									th:field="*{meta}" />
+								</label><br/><br/>
 
+							</div>
+							<div class="4u" align="center">
+							<label> Campanha: </label>
+									
+									<select th:field="*{idCampanha}">
+									<option th:each="t : ${campaign}" th:value="${t.idCampanha}"
+										th:text="${t.name}">Wireframe</option>
+							</select>
 							</div>
 							<div>
 								<input class="button" type="submit" value="Enviar" />

@@ -34,6 +34,7 @@ public class NewCampaignController {
 		
 		System.out.println("Creating new campaign: " + campaign.getName());
 		campaignDAO.save(campaign);
+		
 
 		
 		return "importList";

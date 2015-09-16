@@ -82,7 +82,7 @@
 						<h2>Campanhas</h2>
 						<p>Descrição das campanhas</p>
 						<ul class="link-list">
-							<li th:each="campanha : ${campanhas}"><a href="#" th:text="${campanha.name}"></a></li>
+							<li th:each="campanha : ${campanhas}"><a th:href="@{/editCampaign(id=${campanha.idCampanha})}" th:text="${campanha.name}"></a></li>
 						</ul>
 						<footer class="controls">
 							<a href="http://html5up.net" class="button">Ver mais ...</a>

@@ -10,3 +10,15 @@ public class DialerApplication {
         SpringApplication.run(DialerApplication.class, args);
     }
 }
+
+
+//@Configuration
+//@EnableAutoConfiguration
+//@ComponentScan
+//public class DialerApplication extends SpringBootServletInitializer {
+//
+//    @Override
+//    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+//        return application.sources(DialerApplication.class);
+//    }
+//}

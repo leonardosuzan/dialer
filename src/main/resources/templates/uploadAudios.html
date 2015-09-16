@@ -74,7 +74,9 @@
 		<div class="container">
 			<div class="row main-row">
 				<div class="12u" align="center">
-
+					<div th:if="${save} == true">
+						<p style="color: #04B4AE">Audios carregados com sucesso!</p>
+					</div>
 					<section>
 						<h2>Importar arquivos de Audio</h2>
 						<p>
@@ -85,9 +87,6 @@
 							<table id="fileTable">
 								<tr>
 									<td><input name="files[0]" type="file" /></td>
-								</tr>
-								<tr>
-									<td><input name="files[1]" type="file" /></td>
 								</tr>
 							</table>
 							<br /> <input class="button"  type="submit" value="Upload" /> <input class="button" 
