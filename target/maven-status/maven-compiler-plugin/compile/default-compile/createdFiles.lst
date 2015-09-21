@@ -6,6 +6,7 @@ dialer/CampaignDAO.class
 dialer/MVCConfig.class
 dialer/NewListController.class
 dialer/JobCompletionNotificationListener.class
+dialer/newDateRunController$1.class
 dialer/ImportAudiosController.class
 dialer/IndexController.class
 dialer/NewCampaignController.class
@@ -16,6 +17,7 @@ dialer/WebSecurityConfig.class
 dialer/ListingDAO.class
 dialer/Listing.class
 dialer/newDateRunController.class
+dialer/IndexController$1.class
 dialer/BatchConfiguration.class
 dialer/LogoutController.class
 dialer/DialerApplication.class

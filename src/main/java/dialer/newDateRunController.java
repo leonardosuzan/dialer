@@ -13,12 +13,26 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
-@SessionAttributes({"campaign", "agendamento"})
+@SessionAttributes({ "campaign", "agendamento", "c_selecionada" })
 public class newDateRunController {
 	
+	private class TidCampanha{
+		private Long idCampanha;
+
+		public Long getIdCampanha() {
+			return idCampanha;
+		}
+
+		@SuppressWarnings("unused")
+		public void setIdCampanha(Long idCampanha) {
+			this.idCampanha = idCampanha;
+		}
+		
+	}
+
 	@Autowired
 	CampaignDAO campaignDAO;
-	
+
 	@Autowired
 	AgendamentoDAO agendamentoDAO;
 
@@ -37,45 +51,58 @@ public class newDateRunController {
 
 	@RequestMapping(value = "/newDateRun", method = RequestMethod.GET)
 	public String newDateRun(Model model) {
-		
+
 		List<Campaign> c = campaignDAO.findAll();
-		model.addAttribute("campaign",c);
+		model.addAttribute("campaign", c);
 		Log.info(c);
-		
+
 		Agendamento a = new Agendamento();
 		model.addAttribute("agendamento", a);
 		
+		TidCampanha c_selecionada = new TidCampanha();
+
+//		Long c_selecionada = new Long(0);
+
+		model.addAttribute("c_selecionada", c_selecionada);
+
 		return "newDateRun";
 	}
 
 	@RequestMapping(value = "/newDateRun", method = RequestMethod.POST)
-	public String addDateRun(Model model, @ModelAttribute("agendamento") Agendamento a) {
+	public String addDateRun(Model model,
+			@ModelAttribute("agendamento") Agendamento a,
+			@ModelAttribute("c_selecionada") TidCampanha c_selecionada) {
 		// model.addAttribute("campaign", campaign);
 		
+//		Long c_selecionada = new Long(l);
+		
+		Log.info(model);
+		Log.info("Campanha selecionada para agendamento: " + c_selecionada);
+		Log.info("Tentando criar agendamento: " + a);
+		
+
 		Boolean e = false;
-		
-		if(campaignDAO.findOne(a.getIdCampanha()) == null){
+
+		if (a.getInicio().after(a.getFim())) {
+			// inicio depois do fim
+			e = true;
+		}
+
+		if (a.getMeta() <= 0) {
+			// meta invalida
 			e = true;
 		}
 		
-		if(a.getInicio().after(a.getFim())){
-			//inicio depois do fim
-			e = true;
-		}
-		
-		if(a.getMeta() <= 0 ){
-			//meta invalida
-			e = true;
-		}
-		
-		if(e == false){
+		if (e == false) {
+			a.setIdCampanha(c_selecionada.getIdCampanha());
 			agendamentoDAO.save(a);
+			model.addAttribute("save", true);
 		}
-		
-		
+
 		List<Campaign> c = campaignDAO.findAll();
-		model.addAttribute("campaign",c);
-		
+
+		model.addAttribute("campaign", c);
+
 		return "newDateRun";
 	}
 

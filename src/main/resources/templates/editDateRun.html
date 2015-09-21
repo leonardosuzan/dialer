@@ -12,9 +12,9 @@
 <meta name="keywords" content="" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu+Condensed"
 	rel="stylesheet" />
-<link rel="stylesheet" href="css/jquery-ui.css"/>
+	<link rel="stylesheet" href="css/jquery-ui.css"/>
 <link rel="stylesheet" href="css/jquery-ui-timepicker-addon.css"/>
-
+	
 <script src="js/jquery.min.js"></script>
 <script src="js/skel.min.js"></script>
 <script src="js/skel-layers.min.js"></script>
@@ -46,9 +46,9 @@
 						<nav id="nav">
 
 							<a href="newCampaign">Nova Campanha</a> <a href="newListing">Nova
-								Listagem</a> <a href="newDateRun" class="current-page-item">Novo
-								Agendamento</a> <a href="newAudios">Importar Audios</a> <a
-								href="index">Dashboard</a> <a href="logout">Sair</a>
+								Listagem</a> <a href="newDateRun">Novo Agendamento</a> <a
+								href="newAudios">Importar Audios</a> <a href="index">Dashboard</a>
+							<a href="logout">Sair</a>
 						</nav>
 					</header>
 
@@ -60,17 +60,22 @@
 		<div class="container">
 			<div class="row main-row">
 				<div class="12u" align="center">
-
 					<section>
 					
 					<div th:if="${save} == true">
-						<p style="color: #04B4AE">Agendamento criado com sucesso!</p>
+						<p style="color: #04B4AE">Agendamento alterado com sucesso!</p>
 					</div>
-					
-						<h2>Novo agendamento</h2>
+						<h2>
+							<p th:text="'Agendamento: ' + ${agendamento.idCampanha}"></p>
+						</h2>
+					</section>
+				</div>
+				<div class="12u" align="center">
+					<section>
 						<p>
-						<form action="#" th:action="@{/newDateRun}"
-						 method="post">
+						<form action="#" th:action="@{/editDateRun}"
+							method="post">
+							
 							<div class="4u" align="center">
 							<script>
 									$(function() {
@@ -80,13 +85,13 @@
 										$("#datepicker2").datetimepicker({dateFormat: 'dd/mm/yy' });
 									});
 								</script>
-								<label> data início: <input type="date" id="datepicker1"
+								<label> data início: <input type="text" id="datepicker1"
 									th:field="*{agendamento.inicio}" />
 								</label><br/>
-								<label> data limite: <input type="date" id="datepicker2"
+								<label> data limite: <input type="text" id="datepicker2"
 									th:field="*{agendamento.fim}" />
 								</label><br/><br/>:
-								<label> Meta de resultados: <input type="date"
+								<label> Meta de resultados: <input type="text"
 									th:field="*{agendamento.meta}" />
 								</label><br/><br/>
 
@@ -95,7 +100,7 @@
 							<label> Campanha: </label>
 									<select th:field="*{c_selecionada.idCampanha}">
 									<option th:value="-1" th:text="|---Selecione a campanha---|"></option>
-									<option th:each="t : ${campaign}" th:value="${t.idCampanha}"
+									<option th:each="t : ${campanhas}" th:value="${t.idCampanha}"
 										th:text="${t.name}">Wireframe</option>
 							</select>
 							</div>

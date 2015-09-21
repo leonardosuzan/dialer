@@ -6,6 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
@@ -16,11 +20,17 @@ public class Agendamento {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idAgendamento;
 	
+	@Temporal(value=TemporalType.TIMESTAMP)
+	@DateTimeFormat (pattern="dd/MM/yyyy HH:mm")
 	private Date inicio;
+	
+	@Temporal(value=TemporalType.TIMESTAMP)
+	@DateTimeFormat (pattern="dd/MM/yyyy HH:mm")
 	private Date fim;
 	
 	private Long meta;
 	
+
 	private Long idCampanha;
 
 	public Long getIdAgendamento() {
@@ -65,6 +75,8 @@ public class Agendamento {
 				+ inicio + ", fim=" + fim + ", meta=" + meta + ", idCampanha="
 				+ idCampanha + "]";
 	}
-	
+
+
+
 
 }

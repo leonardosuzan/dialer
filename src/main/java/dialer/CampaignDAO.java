@@ -8,8 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface CampaignDAO extends CrudRepository<Campaign, Long> {
 
 	public List<Campaign> findByName(String name);
-	public Campaign findByidCampanha(Integer id);
+	public Campaign findByidCampanha(Long id);
 	public List<Campaign> findAll();
-	
-
 }

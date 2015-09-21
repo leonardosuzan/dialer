@@ -85,7 +85,7 @@
 							<li th:each="campanha : ${campanhas}"><a th:href="@{/editCampaign(id=${campanha.idCampanha})}" th:text="${campanha.name}"></a></li>
 						</ul>
 						<footer class="controls">
-							<a href="http://html5up.net" class="button">Ver mais ...</a>
+							<a href="#" class="button">Ver mais ...</a>
 						</footer>
 					</section>
 
@@ -99,7 +99,7 @@
 							<li th:each="listing : ${listings}"><a href="#" th:text="${listing.name}"></a></li>
 						</ul>
 						<footer class="controls">
-							<a href="http://html5up.net" class="button">Ver mais ...</a>
+							<a href="#" class="button">Ver mais ...</a>
 						</footer>
 					</section>
 
@@ -110,10 +110,10 @@
 						<h2>Agendamentos</h2>
 						<p>Descrição dos agendamentos</p>
 						<ul class="link-list">
-							<li th:each="a : ${agendamentos}"><a href="#" th:text="|$${agendamento.inicio}|"></a></li>
+							<li th:each="a : ${lagendamentos}"><a th:href="@{/editDateRun(id=${a.a.idAgendamento})}" th:text="|${a.c.name}: ${a.a.inicio}|"></a></li>
 						</ul>
 						<footer class="controls">
-							<a href="http://html5up.net" class="button">Ver mais ...</a>
+							<a href="#" class="button">Ver mais ...</a>
 						</footer>
 					</section>
 

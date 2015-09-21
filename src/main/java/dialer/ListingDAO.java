@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 public interface ListingDAO extends CrudRepository<Listing, Long> {
 
 	public Listing findByName(String name);
-	public Campaign findByidListing(Integer id);
+	public Campaign findByidListing(Long id);
 	public List<Listing> findAll();
 
 }
