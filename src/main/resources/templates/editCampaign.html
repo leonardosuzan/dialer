@@ -25,6 +25,8 @@
 <!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
 <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
 
+
+
 </head>
 <body>
 	<div id="header-wrapper">
@@ -64,14 +66,13 @@
 				</div>
 				<div class="4u" align="left">
 					<section>
-						<p>
+
 						<form action="#" th:action="@{/editCampaign}"
 							th:object="${campanha}" method="post">
 							<div class="4u">
 								<label> Nome da campanha: </label><br></br> <input type="text"
-									th:field="*{name}" /> <label> Listagem: </label><br></br> 
-									
-									<select th:field="*{idListagem}">
+									th:field="*{name}" /> <label> Listagem: </label><br></br> <select
+									th:field="*{idListagem}">
 									<option th:each="t : ${listings}" th:value="${t.idListing}"
 										th:text="${t.name}">Wireframe</option>
 								</select>
@@ -79,16 +80,50 @@
 							<div>
 								<br></br> <input class="button" type="submit" value="Enviar" />
 							</div>
-						</form>
-						</p>
-					</section>
 
+						</form>
+					</section>
+				</div>
+
+				<div class="6u important(collapse)">
+					<section class="middle-content">
+
+
+						<form action="#" method="post" th:action="@{/editCampaignActions}"
+							th:object="${Actions}" >
+							<p>Configure as ações desta campanha:</p>
+
+							<table id="actions">
+								<tr th:each="a : ${actions}">
+									<td><input th:field="${a.tipo}" type="text" /></td>
+									<td><input th:field="${a.var}" type="text" /></td>
+								</tr>
+							</table>
+							<br /> <input class="button" type="submit" value="Salvar" name="save" /> <input
+								class="button" i type="submit" value="Mais uma ação" name="addRow"/>
+						</form>
+
+					</section>
 				</div>
 			</div>
 		</div>
-
 	</div>
+
 	<div id="footer-wrapper">
+
+		<div class="row">
+			<div class="8u">
+			<section>
+			<h2>Chamada teste: </h2>
+			<form action="#" method="post" th:action="@{/testCall}"
+							th:object="${uploadForm}" enctype="multipart/form-data">
+							<input name="numero" type="text" size="70" />
+							<input class="button" type="submit" value="Chamar" />
+						</form>
+			</section>
+			</div>
+		</div>
+
 		<div class="row">
 			<div class="12u">
 

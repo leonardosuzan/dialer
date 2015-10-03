@@ -17,17 +17,17 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+	<classpathentry exported="true" kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/leonardosuzan/.m2/repository/org/bouncycastle/bcprov-jdk15on/1.51/bcprov-jdk15on-1.51.jar">
+	<classpathentry exported="true" kind="lib" path="/Users/leonardosuzan/.m2/repository/org/bouncycastle/bcprov-jdk15on/1.51/bcprov-jdk15on-1.51.jar">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="maven.groupId" value="org.bouncycastle"/>
@@ -36,7 +36,7 @@
 			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/leonardosuzan/.m2/repository/org/springframework/spring-webmvc/3.2.4.RELEASE/spring-webmvc-3.2.4.RELEASE.jar">
+	<classpathentry exported="true" kind="lib" path="/Users/leonardosuzan/.m2/repository/org/springframework/spring-webmvc/3.2.4.RELEASE/spring-webmvc-3.2.4.RELEASE.jar">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="maven.groupId" value="org.springframework"/>
@@ -45,8 +45,8 @@
 			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="/gs-accessing-data-jpa-complete"/>
-	<classpathentry kind="lib" path="/Users/leonardosuzan/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar">
+	<classpathentry exported="true" kind="src" path="/gs-accessing-data-jpa-complete"/>
+	<classpathentry exported="true" kind="lib" path="/Users/leonardosuzan/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="maven.groupId" value="dom4j"/>
@@ -55,7 +55,7 @@
 			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/leonardosuzan/.m2/repository/org/springframework/batch/spring-batch-core/3.0.3.RELEASE/spring-batch-core-3.0.3.RELEASE.jar">
+	<classpathentry exported="true" kind="lib" path="/Users/leonardosuzan/.m2/repository/org/springframework/batch/spring-batch-core/3.0.3.RELEASE/spring-batch-core-3.0.3.RELEASE.jar">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="maven.groupId" value="org.springframework.batch"/>
@@ -64,7 +64,7 @@
 			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/leonardosuzan/.m2/repository/org/springframework/spring-context/3.2.4.RELEASE/spring-context-3.2.4.RELEASE.jar">
+	<classpathentry exported="true" kind="lib" path="/Users/leonardosuzan/.m2/repository/org/springframework/spring-context/3.2.4.RELEASE/spring-context-3.2.4.RELEASE.jar">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="maven.groupId" value="org.springframework"/>
