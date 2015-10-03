@@ -49,9 +49,16 @@ public class EditCampaignController {
 			return null;
 		}
 		
-		Actions a = new Actions();
-		Action r = new Action();
-		a.addAction(r);
+		Actions a;
+		
+		if(c.getActions() == null){
+			a = new Actions();
+			Action r = new Action();
+			a.addAction(r);
+			c.setActions(a);
+		} else {
+			a = c.getActions();
+		}
 
 		model.addAttribute("actions", a);
 		model.addAttribute("campanha", c);
@@ -89,9 +96,11 @@ public class EditCampaignController {
 			SessionStatus status,
 			@ModelAttribute("campanha") Campaign campanha,
 			@ModelAttribute("listings") List<Listing> l,
-			@ModelAttribute("actions") List<Action> a) {
+			@ModelAttribute("actions") Actions a) {
 
 		Log.info("Acoes alteradas: " + a);
+		
+		campanha.setActions(a);
 
 		campaignDAO.save(campanha);
 
@@ -114,6 +123,8 @@ public class EditCampaignController {
 
 		Action r = new Action();
 		a.addAction(r);
+		
+		campanha.setActions(a);
 		
 		campaignDAO.save(campanha);
         

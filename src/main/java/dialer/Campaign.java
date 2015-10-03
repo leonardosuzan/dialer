@@ -1,9 +1,12 @@
 package dialer;
 
+
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -13,8 +16,8 @@ public class Campaign {
 
 	protected Campaign() {
 	}
-	
-	public Campaign(String name){
+
+	public Campaign(String name) {
 		this.name = name;
 	}
 
@@ -23,12 +26,22 @@ public class Campaign {
 	private Long idCampanha;
 
 	private Long idListagem;
-		
 
 	private String description;
-    
+
 	@NotNull
 	private String name;
+	
+	@Lob
+	private Actions actions;
+
+	public Actions getActions() {
+		return actions;
+	}
+
+	public void setActions(Actions actions) {
+		this.actions = actions;
+	}
 
 	public Long getIdCampanha() {
 		return idCampanha;
