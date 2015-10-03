@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
-@SessionAttributes({ "campanha", "listings" })
+@SessionAttributes({ "campanha", "listings", "actions" })
 public class EditCampaignController {
 
 	@Autowired
@@ -48,10 +48,16 @@ public class EditCampaignController {
 			Log.error("Campanha " + i_id + " não existe!");
 			return null;
 		}
+		
+		Actions a = new Actions();
+		Action r = new Action();
+		a.addAction(r);
 
+		model.addAttribute("actions", a);
 		model.addAttribute("campanha", c);
 		model.addAttribute("listings", l);
 
+		Log.info(a);
 		Log.info(l);
 		Log.info(model);
 
@@ -76,5 +82,47 @@ public class EditCampaignController {
 		return "editCampaign";
 
 	}
+	
+	@RequestMapping(value = "/editCampaignActions", method = RequestMethod.POST)
+	public String editCampaignActions(
+			Model model,
+			SessionStatus status,
+			@ModelAttribute("campanha") Campaign campanha,
+			@ModelAttribute("listings") List<Listing> l,
+			@ModelAttribute("actions") List<Action> a) {
+
+		Log.info("Acoes alteradas: " + a);
+
+		campaignDAO.save(campanha);
+
+		model.addAttribute("save", true);
+
+		return "editCampaign";
+
+	}
+	
+	@RequestMapping(value = "/editCampaignActions", method = RequestMethod.POST, params={"addRow"})
+	public String addRow(
+			Model model,
+			SessionStatus status,
+			@ModelAttribute("campanha") Campaign campanha,
+			@ModelAttribute("listings") List<Listing> l,
+			@ModelAttribute("actions") Actions a) {
+
+		Log.info("Acoes alteradas: " + a);
+		
+
+		Action r = new Action();
+		a.addAction(r);
+		
+		campaignDAO.save(campanha);
+        
+		model.addAttribute("save", true);
+
+		return "editCampaign";
+
+	}
+	
+	
 
 }

@@ -89,18 +89,18 @@
 					<section class="middle-content">
 
 
-						<form action="#" method="post" th:action="@{/editCampaignActions}"
-							th:object="${Actions}" >
+						<form action="#" method="post" th:action="@{/editCampaignActions}" th:object="${actions}">
 							<p>Configure as ações desta campanha:</p>
 
 							<table id="actions">
-								<tr th:each="a : ${actions}">
-									<td><input th:field="${a.tipo}" type="text" /></td>
-									<td><input th:field="${a.var}" type="text" /></td>
+								<tr th:each="a,aStat : *{l}">
+									<td th:text="${aStat.count}">1</td>
+									<td><input th:field="*{l[__${aStat.index}__].tipo}" type="text" /></td>
+									<td><input th:field="*{l[__${aStat.index}__].var}" type="text" /></td>
 								</tr>
 							</table>
 							<br /> <input class="button" type="submit" value="Salvar" name="save" /> <input
-								class="button" i type="submit" value="Mais uma ação" name="addRow"/>
+								class="button" type="submit" value="Mais uma ação" name="addRow"/>
 						</form>
 
 					</section>

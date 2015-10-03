@@ -1,4 +1,5 @@
 dialer/ImportController.class
+dialer/Actions.class
 dialer/EditCampaignController.class
 dialer/Campaign.class
 dialer/BatchConfiguration$1.class
@@ -27,6 +28,7 @@ dialer/newDateRunController.class
 dialer/IndexController$1.class
 dialer/BatchConfiguration.class
 dialer/IndexController$LAgendamento.class
+dialer/Action.class
 dialer/LogoutController.class
 dialer/Audio.class
 dialer/DialerApplication.class
