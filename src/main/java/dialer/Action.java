@@ -9,7 +9,7 @@ import java.io.Serializable;
 		 * 
 		 */
 		private static final long serialVersionUID = -3593090753606690277L;
-		private String tipo;
+		private int tipo;
 		private String var;
 		
 		@Override
@@ -18,15 +18,15 @@ import java.io.Serializable;
 		}
 
 		public Action(){
-			tipo = null;
+			tipo = -1;
 			var = null;
 			
 		}
 		
-		public String getTipo() {
+		public int getTipo() {
 			return tipo;
 		}
-		public void setTipo(String tipo) {
+		public void setTipo(int tipo) {
 			this.tipo = tipo;
 		}
 		public String getVar() {

@@ -1,3 +1,4 @@
+dialer/Actions$Opcao.class
 dialer/ImportController.class
 dialer/Actions.class
 dialer/EditCampaignController.class
@@ -24,6 +25,7 @@ dialer/newDateRunController$TidCampanha.class
 dialer/ListingDAO.class
 dialer/AgendamentoDAO.class
 dialer/Listing.class
+dialer/TestCall.class
 dialer/newDateRunController.class
 dialer/IndexController$1.class
 dialer/BatchConfiguration.class

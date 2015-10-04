@@ -85,22 +85,31 @@
 					</section>
 				</div>
 
-				<div class="6u important(collapse)">
+				<div class="8u important(collapse)">
 					<section class="middle-content">
 
 
-						<form action="#" method="post" th:action="@{/editCampaignActions}" th:object="${actions}">
+						<form action="#" method="post" th:action="@{/editCampaignActions}"
+							th:object="${actions}">
 							<p>Configure as ações desta campanha:</p>
+							<div th:if="${analise}"><p style="color:#981d0f" th:text="${analise}">Resultado da analise</p></div>
 
 							<table id="actions">
 								<tr th:each="a,aStat : *{l}">
 									<td th:text="${aStat.count}">1</td>
-									<td><input th:field="*{l[__${aStat.index}__].tipo}" type="text" /></td>
-									<td><input th:field="*{l[__${aStat.index}__].var}" type="text" /></td>
+									<td><select th:field="*{l[__${aStat.index}__].tipo}">
+											<option th:each="var : *{o}" th:value="${var.id}"
+												th:text="${var.nome}">opcao</option>
+									</select></td>
+									<td><input th:field="*{l[__${aStat.index}__].var}"
+										type="text" /></td>
+									<td><input type="submit" th:value="${aStat.index}"
+										name="deleteRow" th:text="|X|" /></td>
 								</tr>
 							</table>
-							<br /> <input class="button" type="submit" value="Salvar" name="save" /> <input
-								class="button" type="submit" value="Mais uma ação" name="addRow"/>
+							<br /> <input class="button" type="submit" value="Salvar"
+								name="save" /> <input class="button" type="submit"
+								value="Mais uma ação" name="addRow" />
 						</form>
 
 					</section>
@@ -113,14 +122,14 @@
 
 		<div class="row">
 			<div class="8u">
-			<section>
-			<h2>Chamada teste: </h2>
-			<form action="#" method="post" th:action="@{/testCall}"
-							th:object="${uploadForm}" enctype="multipart/form-data">
-							<input name="numero" type="text" size="70" />
-							<input class="button" type="submit" value="Chamar" />
-						</form>
-			</section>
+				<section>
+					<h2>Chamada teste:</h2>
+					<div th:if="${callTestResult}"><p style="color:#981d0f" th:text="${callTestResult}">Resultado da chamada</p></div>
+					<form action="#" method="post" th:action="@{/campaignCallTest}">
+						<input name="testNumber" type="text" size="70" /> <input
+							class="button" type="submit" value="Chamar" />
+					</form>
+				</section>
 			</div>
 		</div>
 
