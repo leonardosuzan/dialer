@@ -12,15 +12,14 @@ import org.crsh.console.jline.internal.Log;
 
 
 public class CallerHelper {
-	/*
-	 * Cloudvox outgoing settings. If these aren't defined, create a free
-	 * account and add an app at cloudvox.com.
-	 */
+
 	public static final String HOSTNAME = "192.168.40.129";
 	public static final int PORT = 5038;
 	public static final String USERNAME = "dialer";
 	public static final String PASSWORD = "mt2015tcc";
 	public static final String CONTEXT = "demo-tcc";
+	
+	
 
 	private ManagerConnection managerConnection;
 
@@ -42,14 +41,16 @@ public class CallerHelper {
 
 		originateAction = new OriginateAction();
 
-		originateAction.setChannel("SIP/minutostelecom/"+n);
+		originateAction.setChannel("SIP/"+n);
 		
 		originateAction.setContext("demo-tcc");
 		originateAction.setExten("s");
 		originateAction.setPriority(1);
 
-		originateAction.setCallerId("2063576220");
+		originateAction.setCallerId("dialer.mt");
 		originateAction.setTimeout(new Long(30000));
+		
+		
 
 		/*
 		 * Set variables that a script can access when the phone call is

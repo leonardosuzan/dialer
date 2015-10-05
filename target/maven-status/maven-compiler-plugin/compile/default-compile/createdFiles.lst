@@ -5,6 +5,7 @@ dialer/EditCampaignController.class
 dialer/Campaign.class
 dialer/BatchConfiguration$1.class
 dialer/CampaignDAO.class
+dialer/CallerHelper.class
 dialer/MVCConfig.class
 dialer/NewListController.class
 dialer/JobCompletionNotificationListener.class
@@ -25,7 +26,6 @@ dialer/newDateRunController$TidCampanha.class
 dialer/ListingDAO.class
 dialer/AgendamentoDAO.class
 dialer/Listing.class
-dialer/TestCall.class
 dialer/newDateRunController.class
 dialer/IndexController$1.class
 dialer/BatchConfiguration.class

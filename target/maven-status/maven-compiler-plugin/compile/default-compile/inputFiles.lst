@@ -1,5 +1,6 @@
 /Users/leonardosuzan/TCC/Implementação/dialer/src/main/java/dialer/CampaignDAO.java
 /Users/leonardosuzan/TCC/Implementação/dialer/src/main/java/dialer/Actions.java
+/Users/leonardosuzan/TCC/Implementação/dialer/src/main/java/dialer/CallerHelper.java
 /Users/leonardosuzan/TCC/Implementação/dialer/src/main/java/dialer/ContatoItemProcessor.java
 /Users/leonardosuzan/TCC/Implementação/dialer/src/main/java/dialer/FileUploadController.java
 /Users/leonardosuzan/TCC/Implementação/dialer/src/main/java/dialer/Agendamento.java
@@ -19,7 +20,6 @@
 /Users/leonardosuzan/TCC/Implementação/dialer/src/main/java/dialer/Campaign.java
 /Users/leonardosuzan/TCC/Implementação/dialer/src/main/java/dialer/EditAgendamentoController.java
 /Users/leonardosuzan/TCC/Implementação/dialer/src/main/java/dialer/Contato.java
-/Users/leonardosuzan/TCC/Implementação/dialer/src/main/java/dialer/TestCall.java
 /Users/leonardosuzan/TCC/Implementação/dialer/src/main/java/dialer/MVCConfig.java
 /Users/leonardosuzan/TCC/Implementação/dialer/src/main/java/dialer/AgendamentoDAO.java
 /Users/leonardosuzan/TCC/Implementação/dialer/src/main/java/dialer/Listing.java

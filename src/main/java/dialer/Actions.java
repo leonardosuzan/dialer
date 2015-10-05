@@ -53,7 +53,8 @@ public class Actions implements Serializable {
 		o.add(new Opcao(2, "Coletar resposta"));
 		o.add(new Opcao(3, "Coletar resposta com reconhecimento de voz"));
 		o.add(new Opcao(4, "Transferir"));
-		o.add(new Opcao(5, "Reproduzir audio"));
+		o.add(new Opcao(5, "Transferir Se"));
+		o.add(new Opcao(6, "Reproduzir audio"));
 		
 		
 	}
