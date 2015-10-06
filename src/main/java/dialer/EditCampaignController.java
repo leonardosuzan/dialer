@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
-@SessionAttributes({ "campanha", "listings", "actions" })
+@SessionAttributes({ "campanha", "listings", "actions", "audios" })
 public class EditCampaignController {
 
 	@Autowired
@@ -28,6 +28,9 @@ public class EditCampaignController {
 
 	@Autowired
 	ListingDAO listingDAO;
+	
+	@Autowired
+	AudioDAO audioDAO;
 
 	@RequestMapping(value = "/editCampaign", method = RequestMethod.GET)
 	public String editCampaign(
@@ -65,11 +68,14 @@ public class EditCampaignController {
 		} else {
 			a = c.getActions();
 		}
+		
+		Audios s = new Audios(audioDAO.findAll());
 
 		model.addAttribute("actions", a);
 		model.addAttribute("campanha", c);
 		model.addAttribute("listings", l);
-
+		model.addAttribute("audios", s);
+		
 		Log.info(a);
 		Log.info(l);
 		Log.info(model);
@@ -108,6 +114,8 @@ public class EditCampaignController {
 		@SuppressWarnings("unused")
 		String c = null;
 		Log.info("Resultado da analise:" + r);
+		
+		
 		if (r == "Analise OK: não foram encontrados erros") {
 			try {
 				c = gerarCodigo(campanha);

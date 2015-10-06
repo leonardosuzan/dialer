@@ -6,6 +6,7 @@ dialer/Campaign.class
 dialer/BatchConfiguration$1.class
 dialer/CampaignDAO.class
 dialer/CallerHelper.class
+dialer/Audios.class
 dialer/MVCConfig.class
 dialer/NewListController.class
 dialer/JobCompletionNotificationListener.class

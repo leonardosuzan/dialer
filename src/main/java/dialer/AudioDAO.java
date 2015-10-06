@@ -8,6 +8,7 @@ public interface AudioDAO extends CrudRepository <Audio, Long>{
 	
 	public List<Audio> findByIdAudio(Long idAudio);
 	public List<Audio> findByNome(String nome);
+	public List<Audio> findAll();
 	
 
 }

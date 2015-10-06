@@ -10,4 +10,5 @@ public interface CampaignDAO extends CrudRepository<Campaign, Long> {
 	public List<Campaign> findByName(String name);
 	public Campaign findByidCampanha(Long id);
 	public List<Campaign> findAll();
+	public boolean deleteByidCampanha(Long id);
 }

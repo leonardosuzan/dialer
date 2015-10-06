@@ -55,18 +55,19 @@
 		<div class="container">
 
 			<div id="banner">
-			
-			<img id="close" src="images/close.png" alt="" width="100" height="46"/>
-			<script>
-			$( "#close" ).click(function() {
-				  $( "#banner-wrapper" ).hide( "slow");
-				});
-			</script>
-				
+
+				<img id="close" src="images/close.png" alt="" width="100"
+					height="46" />
+				<script>
+					$("#close").click(function() {
+						$("#banner-wrapper").hide("slow");
+					});
+				</script>
+
 				<!-- 			<img id="close" src="images/close.png" alt=""/> -->
 				<h2>
-				    <p th:text="'Bem-vindo ' + ${user}" />
-<!-- 					<p th:text="'Bem-vindo ' + ${name} + '!'" /> -->
+					<p th:text="'Bem-vindo ' + ${user}" />
+					<!-- 					<p th:text="'Bem-vindo ' + ${name} + '!'" /> -->
 				</h2>
 				<span>Para começar escolha um dos ítens no menu superior ...</span>
 			</div>
@@ -82,7 +83,12 @@
 						<h2>Campanhas</h2>
 						<p>Descrição das campanhas</p>
 						<ul class="link-list">
-							<li th:each="campanha : ${campanhas}"><a th:href="@{/editCampaign(id=${campanha.idCampanha})}" th:text="${campanha.name}"></a></li>
+							<li th:each="campanha : ${campanhas}"><a
+								th:href="@{/editCampaign(id=${campanha.idCampanha})}"
+								th:text="${campanha.name}"></a>
+								<form method="post" th:action="@{/index}">
+							<button style="float: right;" class="xbutton" type="submit" th:value="${campanha.idCampanha}"
+									name="deleteCampaign">X</button></form></li>
 						</ul>
 						<footer class="controls">
 							<a href="#" class="button">Ver mais ...</a>
@@ -96,7 +102,8 @@
 						<h2>Listagens</h2>
 						<p>Descrição das listagens</p>
 						<ul class="link-list">
-							<li th:each="listing : ${listings}"><a href="#" th:text="${listing.name}"></a></li>
+							<li th:each="listing : ${listings}"><a href="#"
+								th:text="${listing.name}"></a></li>
 						</ul>
 						<footer class="controls">
 							<a href="#" class="button">Ver mais ...</a>
@@ -110,7 +117,9 @@
 						<h2>Agendamentos</h2>
 						<p>Descrição dos agendamentos</p>
 						<ul class="link-list">
-							<li th:each="a : ${lagendamentos}"><a th:href="@{/editDateRun(id=${a.a.idAgendamento})}" th:text="|${a.c.name}: ${a.a.inicio}|"></a></li>
+							<li th:each="a : ${lagendamentos}"><a
+								th:href="@{/editDateRun(id=${a.a.idAgendamento})}"
+								th:text="|${a.c.name}: ${a.a.inicio}|"></a></li>
 						</ul>
 						<footer class="controls">
 							<a href="#" class="button">Ver mais ...</a>
@@ -146,20 +155,20 @@
 					</section>
 
 				</div>
-<!-- 				<div class="4u"> -->
+				<!-- 				<div class="4u"> -->
 
-<!-- 					<section> -->
-<!-- 						<h2>Something of interest</h2> -->
-<!-- 						<p>Duis neque nisi, dapibus sed mattis quis, rutrum accumsan -->
-<!-- 							sed. Suspendisse eu varius nibh. Suspendisse vitae magna eget -->
-<!-- 							odio amet mollis justo facilisis quis. Sed sagittis mauris amet -->
-<!-- 							tellus gravida lorem ipsum dolor sit amet consequat blandit.</p> -->
-<!-- 						<footer class="controls"> -->
-<!-- 							<a href="#" class="button">Oh, please continue ....</a> -->
-<!-- 						</footer> -->
-<!-- 					</section> -->
+				<!-- 					<section> -->
+				<!-- 						<h2>Something of interest</h2> -->
+				<!-- 						<p>Duis neque nisi, dapibus sed mattis quis, rutrum accumsan -->
+				<!-- 							sed. Suspendisse eu varius nibh. Suspendisse vitae magna eget -->
+				<!-- 							odio amet mollis justo facilisis quis. Sed sagittis mauris amet -->
+				<!-- 							tellus gravida lorem ipsum dolor sit amet consequat blandit.</p> -->
+				<!-- 						<footer class="controls"> -->
+				<!-- 							<a href="#" class="button">Oh, please continue ....</a> -->
+				<!-- 						</footer> -->
+				<!-- 					</section> -->
 
-<!-- 				</div> -->
+				<!-- 				</div> -->
 			</div>
 			<div class="row">
 				<div class="12u">

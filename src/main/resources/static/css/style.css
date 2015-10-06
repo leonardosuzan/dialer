@@ -193,6 +193,34 @@ ul.link-list li:first-child {
 	text-shadow:0px 1px 0px #810e05;
 }
 
+.xbutton {
+  background: #d93434;
+  background-image: -webkit-linear-gradient(top, #d93434, #ff194b);
+  background-image: -moz-linear-gradient(top, #d93434, #ff194b);
+  background-image: -ms-linear-gradient(top, #d93434, #ff194b);
+  background-image: -o-linear-gradient(top, #d93434, #ff194b);
+  background-image: linear-gradient(to bottom, #d93434, #ff194b);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  text-shadow: 1px 1px 3px #666666;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 11px;
+  padding: 3px 10px 3px 10px;
+  text-decoration: none;
+}
+
+.xbutton:hover {
+  background: #fa3c3c;
+  background-image: -webkit-linear-gradient(top, #fa3c3c, #d9344f);
+  background-image: -moz-linear-gradient(top, #fa3c3c, #d9344f);
+  background-image: -ms-linear-gradient(top, #fa3c3c, #d9344f);
+  background-image: -o-linear-gradient(top, #fa3c3c, #d9344f);
+  background-image: linear-gradient(to bottom, #fa3c3c, #d9344f);
+  text-decoration: none;
+}
+
 /*table*/
 
 #table {

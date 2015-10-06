@@ -11,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.*;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class IndexController {
@@ -84,6 +86,58 @@ public class IndexController {
 		Log.info("Agendamentos: " + agendamentos.toString());
 		
 
+		return "index";
+	}
+	
+	
+	@RequestMapping(value = { "", "/", "home", "index", "dashboard" }, method = RequestMethod.POST, params = { "deleteCampaign" })
+	public String deleteCampaign(Model model,
+			@RequestParam("deleteCampaign") int n){
+		
+		
+		model.addAttribute("pg_name", "dialer.mt | home");
+
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		String cur_username = auth.getName(); // get logged in username
+
+		model.addAttribute("user", cur_username);
+		
+		
+		//apaga campanha solicitada
+		campaignDAO.delete((long) n);
+
+		List<Campaign> campanhas = campaignDAO.findAll();
+		List<Listing> listagens = listingDAO.findAll();
+		List<Agendamento> agendamentos = agendamentoDAO.findAll();
+		
+		List<LAgendamento> l = new ArrayList<LAgendamento>();
+		
+		ListIterator<Agendamento> it = agendamentos.listIterator();
+		
+		
+		while(it.hasNext()){
+			LAgendamento a = new LAgendamento();
+			a.setA(it.next());
+			a.setC(campaignDAO.findOne(a.getA().getIdCampanha()));
+			l.add(a);
+		}
+		
+
+	
+		model.addAttribute("campanhas", campanhas);
+		model.addAttribute("listings", listagens);
+		model.addAttribute("agendamentos", agendamentos);
+		model.addAttribute("lagendamentos", l);
+		
+		Log.info("Campanhas: " + campanhas.toString());
+		Log.info("Listagens: " + listagens.toString());
+		Log.info("Agendamentos: " + agendamentos.toString());
+
+		
+		
+		
+		
 		return "index";
 	}
 
