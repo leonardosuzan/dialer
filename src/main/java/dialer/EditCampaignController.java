@@ -10,6 +10,9 @@ import org.asteriskjava.manager.AuthenticationFailedException;
 import org.asteriskjava.manager.TimeoutException;
 import org.crsh.console.jline.internal.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +23,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
+@ComponentScan(basePackages = { "dialer.*" })
+@PropertySource("classpath:application.properties")
 @SessionAttributes({ "campanha", "listings", "actions", "audios" })
 public class EditCampaignController {
 
@@ -31,6 +36,9 @@ public class EditCampaignController {
 	
 	@Autowired
 	AudioDAO audioDAO;
+	
+	@Value("${directory.extension}")
+	String extensionConf;
 
 	@RequestMapping(value = "/editCampaign", method = RequestMethod.GET)
 	public String editCampaign(
@@ -191,10 +199,17 @@ public class EditCampaignController {
 		Log.info("Iniciando chamada de teste para o número: " + n);
 
 		CallerHelper t = new CallerHelper();
+		
+		String rReload = t.reload();
+		
+		if(rReload != null){
+			model.addAttribute("callTestResult", rReload);
+			return "editCampaign";
+		}
 
 		String r;
 		try {
-			r = t.run(n);
+			r = t.run(n,campanha.getIdCampanha().toString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			r = e.toString();
@@ -301,7 +316,7 @@ public class EditCampaignController {
 		@SuppressWarnings("unused")
 		Action y = null; // Acao anterior em relacao a atual
 
-		File file = new File("/tmp/extensions_testing.conf");
+		File file = new File(extensionConf);
 		try {
 			file.createNewFile();
 		} catch (IOException e) {
@@ -324,7 +339,7 @@ public class EditCampaignController {
 
 			case 0: // atender
 				writer.write("exten => s,1,Answer()\n"
-						+ "exten => s,n,System(MYSQL_QUERY)\n"
+//						+ "exten => s,n,System(\"MYSQL\")\n"
 						+ "exten => s,n,NoOp(${dialingNumber})\n"
 						+ "exten => s,n,Wait(1)\n");
 				break;
@@ -335,7 +350,7 @@ public class EditCampaignController {
 
 			case 2: // coletar resposta
 				writer.write("exten => s,n,Read(auxX,,1,n,1,10)\n"
-						+ "exten => s,n,System(MYSQL_QUERY)\n");
+						+ "exten => s,n,System(\"MYSQL\")\n");
 				break;
 			case 3: // coletar resposta com reconhecimento de voz
 				writer.write("exten => s,n,Set(c=3)\n"
@@ -350,12 +365,12 @@ public class EditCampaignController {
 						+ "exten => s,n,GotoIf($[\"${GoogleUtterance}\" = \"<STRING_DESEJADA>\"]?entendi)\n"
 						+ "exten => s,n,GoTo(n_entendi)\n"
 						+ "exten => s,n(entendi),NoOP(Resposta = ${GoogleUtterance})\n"
-						+ "exten => s,n,System(MYSQL_QUERY)\n"
+//						+ "exten => s,n,System(MYSQL_QUERY)\n"
 						+ "exten => s,n,Set(auxX = ${GoogleUtterance})\n");
 				break;
 
 			case 4: // transferir
-				writer.write("exten => s,n,System(MYSQL_QUERY)\n"
+				writer.write("exten => s,n,System(\"MYSQL\")\n"
 						+ "exten => s,n,GoTo(from-internal,<NUMERO_PARA_TRANSFERIR>,1)\n");
 				break;
 
@@ -370,7 +385,8 @@ public class EditCampaignController {
 				break;
 
 			case 6: // reproduzir audio
-				writer.write("exten => s,n,Playback(custom/<ArquivoDeAudio>)\n");
+				Audio t = audioDAO.findOne(Long.parseLong(x.getVar()));
+				writer.write("exten => s,n,Playback(custom/"+t.getNome()+")\n");
 				break;
 
 			}

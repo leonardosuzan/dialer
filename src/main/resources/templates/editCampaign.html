@@ -105,7 +105,7 @@
 									<td th:if="*{l[__${aStat.index}__].tipo}!=6"><input
 										th:field="*{l[__${aStat.index}__].var}" type="text" size="18" /></td>
 									<td th:if="*{l[__${aStat.index}__].tipo}==6"><select
-										th:field="*{l[__${aStat.index}__].var}">
+										th:field="*{l[__${aStat.index}__].var}" style="width:150px">
 											<option th:each="audio : ${audios.l}"
 												th:value="${audio.idAudio}" th:text="${audio.nome}">
 											</option>

@@ -97,13 +97,14 @@ public class ImportAudiosController {
                     if(alaw.exists() && alaw.length() > 0){
                     	Log.info("Arquivo convertido com sucesso");
                     } else{
+                    	Log.info("Erro ao converter arquivo. É um arquivo de audio?");
                     	alaw.delete();
                     }
                     
                     Audio a = new Audio();
                     
                     a.setDir(saveDirectory + fileName+".alaw");
-                    a.setNome(fileName+".alaw");
+                    a.setNome(fileName);
                     
                     audioDAO.save(a);
                     
