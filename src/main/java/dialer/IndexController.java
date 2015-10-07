@@ -85,7 +85,6 @@ public class IndexController {
 		Log.info("Listagens: " + listagens.toString());
 		Log.info("Agendamentos: " + agendamentos.toString());
 		
-
 		return "index";
 	}
 	

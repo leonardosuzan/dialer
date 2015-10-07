@@ -45,7 +45,6 @@
 			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="src" path="/gs-accessing-data-jpa-complete"/>
 	<classpathentry exported="true" kind="lib" path="/Users/leonardosuzan/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

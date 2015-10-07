@@ -145,14 +145,21 @@
 			<artifactId>asterisk-java</artifactId>
 			<version>1.0.0.M3</version>
 		</dependency>
+		<dependency>
+			<groupId>it.sauronsoftware</groupId>
+			<artifactId>jave</artifactId>
+			<version>1.0.2</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/jave-1.0.2.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-maven-plugin</artifactId>
-</plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
 
