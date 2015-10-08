@@ -55,6 +55,7 @@ public class Actions implements Serializable {
 		o.add(new Opcao(4, "Transferir"));
 		o.add(new Opcao(5, "Transferir Se"));
 		o.add(new Opcao(6, "Reproduzir audio"));
+		o.add(new Opcao(7, "Renderizar voz"));
 		
 		
 	}

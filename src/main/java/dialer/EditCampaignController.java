@@ -349,24 +349,23 @@ public class EditCampaignController {
 				break;
 
 			case 2: // coletar resposta
-				writer.write("exten => s,n,Read(auxX,,1,n,1,10)\n"
-						+ "exten => s,n,System(\"MYSQL\")\n");
+				writer.write("exten => s,n,Read(aux"+l.indexOf(x)+",,1,n,1,10)\n");
+//						+ "exten => s,n,System(\"MYSQL\")\n");
 				break;
 			case 3: // coletar resposta com reconhecimento de voz
 				writer.write("exten => s,n,Set(c=3)\n"
-						+ "exten => s,n,GoTo(inicio)\n"
-						+ "exten => s,n(n_entendi),Playback(custom/n_entendi)\n"
+						+ "exten => s,n,GoTo(inicioX)\n"
+						+ "exten => s,n(n_entendiX),Playback(custom/pm-invalid-option)\n"
 						+ "exten => s,n,Set(c=$[${c} - 1])\n"
 						+ "exten => s,n,GotoIf($[\"${c}\" = \"0\"]?desligar)\n"
-						+ "exten => s,n(inicio),EAGI(pahh.py)\n"
-						+ "exten => s,n,GotoIf($[\"${GoogleUtterance}\" = \"<STRING_DESEJADA>\"]?entendi)\n"
-						+ "exten => s,n,GotoIf($[\"${GoogleUtterance}\" = \"<STRING_DESEJADA>\"]?entendi)\n"
-						+ "(...)\n"
-						+ "exten => s,n,GotoIf($[\"${GoogleUtterance}\" = \"<STRING_DESEJADA>\"]?entendi)\n"
-						+ "exten => s,n,GoTo(n_entendi)\n"
-						+ "exten => s,n(entendi),NoOP(Resposta = ${GoogleUtterance})\n"
+						+ "exten => s,n(inicioX),agi(speech-recog.agi, pt-BR)\n"
+						+ "exten => s,n,NoOP(Detectado = ${utterance})\n"
+						+ "exten => s,n,NoOP(Confiabilidade = ${confidence})\n"
+						+ "exten => s,n,GotoIf($[\"${utterance}\" = \""+x.getVar()+"\"]?entendi)\n"
+						+ "exten => s,n,GoTo(n_entendiX)\n"
+						+ "exten => s,n(entendiX),NoOP(Resposta = ${utterance})\n"
 //						+ "exten => s,n,System(MYSQL_QUERY)\n"
-						+ "exten => s,n,Set(auxX = ${GoogleUtterance})\n");
+						+ "exten => s,n,Set(auxX = ${utterance})\n");
 				break;
 
 			case 4: // transferir
@@ -388,6 +387,9 @@ public class EditCampaignController {
 				Audio t = audioDAO.findOne(Long.parseLong(x.getVar()));
 				writer.write("exten => s,n,Playback(custom/"+t.getNome()+")\n");
 				break;
+				
+			case 7: //renderizar voz
+				writer.write("exten => s,n,agi(googletts.agi,\""+x.getVar()+"\",pt-BR)\n");
 
 			}
 

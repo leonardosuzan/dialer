@@ -63,14 +63,14 @@ public class CallerHelper {
 			originateAction.setChannel("SIP/minutostelecom/" + number);
 		}
 
-		originateAction.setChannel("SIP/" + number);
-
 		originateAction.setContext(context);
 		originateAction.setExten("s");
 		originateAction.setPriority(1);
 
 		originateAction.setCallerId("dialer.mt");
 		originateAction.setTimeout(new Long(30000));
+		
+		originateAction.setVariable("dialingNumber", number);
 
 		Log.info(originateAction.toString());
 
@@ -85,7 +85,7 @@ public class CallerHelper {
 
 		/*
 		 * send the originate action and wait for a maximum of 30 seconds for
-		 * Asterisk to send a reply
+		 * Asterisk to send a reply in ms
 		 */
 		originateResponse = managerConnection.sendAction(originateAction, 30000);
 
