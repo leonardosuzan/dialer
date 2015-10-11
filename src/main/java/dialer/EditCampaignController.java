@@ -207,7 +207,7 @@ public class EditCampaignController {
 
 		String r;
 		try {
-			r = t.run(n, campanha.getIdCampanha().toString());
+			r = t.run(n, campanha.getIdCampanha().toString(), campanha, new Long(-1));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			r = e.toString();
@@ -500,6 +500,8 @@ public class EditCampaignController {
 		writer.write("\n\n[" + c.getIdCampanha() + "]\n");
 
 		Integer count = new Integer(0);
+		Integer resp = new Integer(0);
+		Integer transf = new Integer(0);
 
 		// percorre toda a lista, sendo x acáo atual e y açao anterior
 		while (i.hasNext()) {
@@ -510,8 +512,9 @@ public class EditCampaignController {
 			switch (x.getTipo()) {
 
 			case 0: // atender
-				writer.write("exten => s,1,Answer()\n"
-						// + "exten => s,n,System(\"MYSQL\")\n"
+				writer.write("exten => s,1,Set(ODBC_DIALER_CALLTRY(${idContato},${idCampanha})=1)\n"
+						+"exten => s,n,Answer()\n"
+						+"exten => s,n,Set(ODBC_DIALER_ANS(${idContato},${idCampanha})=1)\n"
 						+ "exten => s,n,NoOp(${dialingNumber})\n" + "exten => s,n,Wait(1)\n");
 				break;
 
@@ -520,10 +523,12 @@ public class EditCampaignController {
 				break;
 
 			case 2: // coletar resposta
-				writer.write("exten => s,n,Read(aux" + count + ",,1,n,1,10)\n");
-				// + "exten => s,n,System(\"MYSQL\")\n");
+				resp++;
+				writer.write("exten => s,n,Read(aux" + count + ",,1,n,1,10)\n"
+				+"exten => s,n,Set(ODBC_DIALER_SETR(${idContato},${idCampanha})=resposta"+resp+",${aux"+count+"})\n");
 				break;
 			case 3: // coletar resposta com reconhecimento de voz
+				resp++;
 
 				StringTokenizer st = new StringTokenizer(x.getVar(), ",");
 
@@ -541,24 +546,26 @@ public class EditCampaignController {
 
 				writer.write("exten => s,n,GoTo(n_entendi" + count + ")\n" + "exten => s,n(entendi" + count
 						+ "),NoOP(Resposta = ${utterance})\n"
-						// + "exten => s,n,System(MYSQL_QUERY)\n"
+						+"exten => s,n,Set(ODBC_DIALER_SETR(${idContato},${idCampanha})=resposta"+resp+",${aux"+count+"})\n"
 						+ "exten => s,n,Set(aux" + count + "=${utterance})\n");
 
 				break;
 
 			case 4: // transferir
-				writer.write(/* "exten => s,n,System(\"MYSQL\")\n" + */
-						"exten => s,n,Dial(SIP/minutostelecom/" + x.getVar() + ",20,,)\n");
+				transf++;
+				writer.write("exten => s,n,Set(ODBC_DIALER_SETR(${idContato},${idCampanha})=transferiu"+transf+",1)\n"
+						+"exten => s,n,Dial(SIP/minutostelecom/" + x.getVar() + ",20,,)\n");
 				break;
 
 			case 5: // transferir se
-
+				transf++;
+				
 				StringTokenizer st5 = new StringTokenizer(x.getVar(), ",");
 
 				writer.write("exten => s,n,GotoIf($[\"${aux" + (count - 1) + "}\" = \"" + st5.nextToken() + "\"]?transf"
 						+ count + ")\n" + "exten => s,n,Goto(n_transf" + count + ")\n" + "exten => s,n(transf" + count
 						+ "),NoOp(\"Transferindo!\"))\n"
-						// + "exten => s,n,System(MYSQL_QUERY)\n"
+						+ "exten => s,n,Set(ODBC_DIALER_SETR(${idContato},${idCampanha})=transferiu"+transf+",1)\n"
 						+ "exten => s,n,Dial(SIP/minutostelecom/" + st5.nextToken() + ",20,,)\n"
 						+ "exten => s,n(n_transf" + count + "),NoOp(\"Não transferiu\"))\n");
 				break;

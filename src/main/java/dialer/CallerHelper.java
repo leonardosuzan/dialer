@@ -49,7 +49,7 @@ public class CallerHelper {
 		return null;
 	}
 
-	public String run(String number, String context)
+	public String run(String number, String context, Campaign c, Long idContato)
 			throws IOException, AuthenticationFailedException, TimeoutException {
 
 		OriginateAction originateAction;
@@ -71,6 +71,8 @@ public class CallerHelper {
 		originateAction.setTimeout(new Long(30000));
 		
 		originateAction.setVariable("dialingNumber", number);
+		originateAction.setVariable("idCampanha", c.getIdCampanha().toString());
+		originateAction.setVariable("idContato", idContato.toString());
 
 		Log.info(originateAction.toString());
 
