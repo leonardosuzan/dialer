@@ -30,6 +30,8 @@ public class Agendamento {
 	
 	private Long meta;
 	
+	private boolean exec;
+	
 
 	private Long idCampanha;
 
@@ -74,6 +76,14 @@ public class Agendamento {
 		return "Agendamento [idAgendamento=" + idAgendamento + ", inicio="
 				+ inicio + ", fim=" + fim + ", meta=" + meta + ", idCampanha="
 				+ idCampanha + "]";
+	}
+
+	public boolean isExec() {
+		return exec;
+	}
+
+	public void setExec(boolean exec) {
+		this.exec = exec;
 	}
 
 

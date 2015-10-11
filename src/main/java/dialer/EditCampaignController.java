@@ -9,8 +9,6 @@ import java.util.Locale;
 import java.util.StringTokenizer;
 
 import org.apache.commons.lang3.StringUtils;
-import org.asteriskjava.manager.AuthenticationFailedException;
-import org.asteriskjava.manager.TimeoutException;
 import org.crsh.console.jline.internal.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -206,22 +204,7 @@ public class EditCampaignController {
 		}
 
 		String r;
-		try {
-			r = t.run(n, campanha.getIdCampanha().toString(), campanha, new Long(-1));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			r = e.toString();
-			e.printStackTrace();
-		} catch (AuthenticationFailedException e) {
-			// TODO Auto-generated catch block
-			r = e.toString();
-
-			e.printStackTrace();
-		} catch (TimeoutException e) {
-			// TODO Auto-generated catch block
-			r = e.toString();
-			e.printStackTrace();
-		}
+		r = t.run(n, campanha.getIdCampanha().toString(), campanha, new Integer(-1));
 
 		model.addAttribute("callTestResult", r);
 

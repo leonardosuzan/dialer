@@ -144,5 +144,9 @@ public class Contato implements Serializable {
 	public void setIdListagens(Integer idListagens) {
 		this.idListagens = idListagens;
 	}
+	
+	public String getNumeroTelefonicoCompleto(){
+		return "0" + this.codigoArea + this.numeroTelefonico;
+	}
 
 }

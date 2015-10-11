@@ -2,6 +2,9 @@ package dialer;
 
 import java.io.IOException;
 
+import org.asteriskjava.live.AsteriskChannel;
+import org.asteriskjava.live.AsteriskServer;
+import org.asteriskjava.live.DefaultAsteriskServer;
 import org.asteriskjava.manager.AuthenticationFailedException;
 import org.asteriskjava.manager.ManagerConnection;
 import org.asteriskjava.manager.ManagerConnectionFactory;
@@ -21,11 +24,13 @@ public class CallerHelper {
 	public static final String CONTEXT = "demo-tcc";
 
 	private ManagerConnection managerConnection;
+	private AsteriskServer asteriskServer;
 
 	public CallerHelper() {
 		ManagerConnectionFactory factory = new ManagerConnectionFactory(HOSTNAME, PORT, USERNAME, PASSWORD);
 
 		this.managerConnection = factory.createManagerConnection();
+		this.asteriskServer = new DefaultAsteriskServer(HOSTNAME, USERNAME, PASSWORD);
 	}
 
 	public String reload() {
@@ -49,8 +54,7 @@ public class CallerHelper {
 		return null;
 	}
 
-	public String run(String number, String context, Campaign c, Long idContato)
-			throws IOException, AuthenticationFailedException, TimeoutException {
+	public String run(String number, String context, Campaign c, Integer idContato){
 
 		OriginateAction originateAction;
 		ManagerResponse originateResponse;
@@ -83,23 +87,43 @@ public class CallerHelper {
 		// originateAction.setVariables(new Hashtable(...))
 
 		// connect to Asterisk and log in
-		managerConnection.login();
+		
+		try {
+			managerConnection.login();
 
-		/*
-		 * send the originate action and wait for a maximum of 30 seconds for
-		 * Asterisk to send a reply in ms
-		 */
-		originateResponse = managerConnection.sendAction(originateAction, 30000);
+			/*
+			 * send the originate action and wait for a maximum of 30 seconds for
+			 * Asterisk to send a reply in ms
+			 */
+			originateResponse = managerConnection.sendAction(originateAction, 30000);
 
-		// print out whether the originate succeeded or not
-		Log.info("Asterisk Response:" + originateResponse.getResponse());
-		Log.info("Asterisk Message:" + originateResponse.getMessage());
+			// print out whether the originate succeeded or not
+			Log.info("Asterisk Response:" + originateResponse.getResponse());
+			Log.info("Asterisk Message:" + originateResponse.getMessage());
+			
+			// and finally log off and disconnect
+			managerConnection.logoff();
 
-		// and finally log off and disconnect
-		managerConnection.logoff();
+			return originateResponse.getResponse() + " : " + originateResponse.getMessage();
+			
+		} catch (IllegalStateException | IllegalArgumentException | IOException | AuthenticationFailedException
+				| TimeoutException e) {
+			managerConnection.logoff();
+			return e.getMessage();
+		}
 
-		return originateResponse.getResponse() + " : " + originateResponse.getMessage();
-
+	}
+	
+	public Integer getActiveChannels(){
+		
+		Integer count = new Integer(0);
+		
+		for (@SuppressWarnings("unused") AsteriskChannel asteriskChannel : asteriskServer.getChannels())
+        {
+            count++;
+        }
+		
+		return count;
 	}
 
 }
